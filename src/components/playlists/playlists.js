@@ -2,14 +2,14 @@
 
 var React = require('react');
 
-var Home = React.createClass({
+var Playlists = React.createClass({
     render: function() {
         return (
             <div className="jumbotron">
-                <h1>Welcome</h1>
+                <h1>Lists</h1>
             </div>
         );
     }
 });
 
-module.exports = Home;
+module.exports = Playlists;
