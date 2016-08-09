@@ -57,7 +57,7 @@ var ToggleSidebarButton = React.createClass({
 var MusicVideoBackdrop = React.createClass({
   render: function() {
     return (
-      <iframe width="100%" height="100%" src={"https://www.youtube.com/embed/" + (this.props.selectedSong.id || this.props.selectedSong)} frameBorder="0" allowFullScreen></iframe>
+      <iframe width="100%" height="100%" src={"https://www.youtube.com/embed/" + (this.props.selectedSong.id || this.props.selectedSong) + "?autoplay=1"} frameBorder="0"  allowFullScreen></iframe>
     );
   }
 

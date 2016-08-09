@@ -19,6 +19,12 @@
   float: left;
   width: 200px;
   padding: 8px 5px;
+  color: #0A72CC;
+  cursor: pointer;
+}
+
+.songList:hover {
+  background-color: rgba(99,99,99,0.30);
 }
 
 .wrapper-toggled {
