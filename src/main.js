@@ -1,32 +1,13 @@
-$ = jQuery = require('jquery');
 var ReactDOM = require('react-dom');
 var React = require('react');
-var Home = require('./components/home');
-var Playlists = require('./components/playlists/playlists');
 var Header = require('./components/common/header');
+$ = jQuery = require('jquery');
 
-var App = React.createClass({
-    render: function() {
-        var Child;
+var Router = require('react-router').Router;
+var routes = require('./routes');
+var browserHistory = require('react-router').browserHistory;
+var hashHistory = require('react-router').hashHistory;
 
-        switch(this.props.route) {
-            case 'playlists': Child = Playlists; break;
-            default: Child = Home;
-        }
+ReactDOM.render(<Router history={hashHistory}>{routes}</Router>, document.getElementById('app'));
 
-        return (
-            <div>
-                <Header />
-                <Child />
-            </div>
-        );
-    }
-});
-
-function render() {
-    var route = window.location.hash.substr(1);
-    ReactDOM.render(<App route={route} />, document.getElementById('app'));
-};
-
-window.addEventListener('hashchange', render);
-render();
+//ReactDOM.render(<Header />, document.getElementById('app'));

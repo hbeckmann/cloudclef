@@ -1,0 +1,70 @@
+.sidebar-wrapper {
+    z-index: 1000;
+    opacity: 0.95;
+    position: fixed;
+    left: 250px;
+    height: 100%;
+    margin-left: -250px;
+    overflow-y: hidden;
+    background: #000;
+    -webkit-transition: all 0.5s ease;
+    -moz-transition: all 0.5s ease;
+    -o-transition: all 0.5s ease;
+    transition: all 0.5s ease;
+    box-shadow: 10px 14px 28px rgba(0,0,0,0.50),
+                0 10px 10px rgba(0,0,0,0.50);
+}
+
+.songList {
+  float: left;
+  width: 200px;
+  padding: 8px 5px;
+}
+
+.wrapper-toggled {
+    left: 250px;
+    width: 250px;
+}
+
+.wrapper-notoggled {
+    left: 40px;
+    width: 250px;
+}
+
+.toggleButton {
+  margin-left: 250px;
+  position: absolute;
+  left: 0px;
+}
+
+.toggleButton2 {
+  float: right;
+  width: 40px;
+  font-size: 30px;
+  opacity: 1;
+  color: #fff;
+  margin-top: 10px;
+  padding-left: 3px;
+  height: 100%;
+  border-left: 1px solid #222;
+  cursor: pointer;
+}
+
+.navbar {
+  margin-bottom: 0px;
+}
+
+.videoHolder {
+  margin: 0px;
+  padding: 0px;
+  height: 94%;
+  width: 100%;
+  position: absolute;
+  top: 52px;
+  left: 0px;
+  overflow: hidden;
+}
+
+iframe {
+  overflow: hidden;
+}

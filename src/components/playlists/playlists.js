@@ -6,7 +6,7 @@ var Playlists = React.createClass({
     render: function() {
         return (
             <div className="jumbotron">
-                <h1>Lists</h1>
+                <h1>New Playlist</h1>
             </div>
         );
     }
