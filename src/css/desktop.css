@@ -1,3 +1,18 @@
+.addSongButton {
+  color: #0A72CC;
+  border: 1px solid #0A72CC;
+  margin: 20px 20px 5px 20px;
+  padding: 12px 5px 8px 38px;
+  float: left;
+  width: 170px;
+}
+
+.addSongButton:hover {
+  background-color: rgba(99,99,99,0.30);
+  color: white;
+  cursor: pointer;
+}
+
 .sidebar-wrapper {
     z-index: 1000;
     opacity: 0.95;
@@ -63,10 +78,10 @@
 .videoHolder {
   margin: 0px;
   padding: 0px;
-  height: 94%;
+  height: 97.3%;
   width: 100%;
   position: absolute;
-  top: 52px;
+  top: 26px;
   left: 0px;
   overflow: hidden;
 }
