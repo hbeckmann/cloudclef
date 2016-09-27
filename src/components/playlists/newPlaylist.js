@@ -146,7 +146,7 @@ var SongList = React.createClass({
     };
 
     return (
-      <div>
+      <div className="songsWrapper">
         {this.props.songs.map(createList, this)}
       </div>
     );

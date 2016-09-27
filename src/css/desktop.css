@@ -30,9 +30,27 @@
                 0 10px 10px rgba(0,0,0,0.50);
 }
 
+.songsWrapper {
+    overflow-y: scroll;
+    overflow-x: hidden;
+    height: 85%;
+}
+
+::-webkit-scrollbar {
+    width: 12px;
+
+}
+
+::-webkit-scrollbar-thumb {
+    width: 10px;
+    color: #000;
+    background: #fff;
+}
+
+
 .selectedSong {
   float: left;
-  width: 200px;
+  width: 192px;
   padding: 8px 5px;
   color: #0A72CC;
   background: #262626;
@@ -42,7 +60,7 @@
 
 .songList {
   float: left;
-  width: 200px;
+  width: 192px;
   padding: 8px 5px;
   color: #0A72CC;
   cursor: pointer;
