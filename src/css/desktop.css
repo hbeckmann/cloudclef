@@ -30,6 +30,16 @@
                 0 10px 10px rgba(0,0,0,0.50);
 }
 
+.selectedSong {
+  float: left;
+  width: 200px;
+  padding: 8px 5px;
+  color: #0A72CC;
+  background: #262626;
+  opacity: 0.95;
+  cursor: pointer;
+}
+
 .songList {
   float: left;
   width: 200px;

@@ -11,98 +11,17 @@ var NewPlaylistPage = React.createClass({
       toggled: 'wrapper-toggled',
       direction: 'left',
       songs: JSON.parse(JSON.stringify(playlistData.playlists)),
-      selectedSong: JSON.parse(JSON.stringify(playlistData.playlists[0])),
+      selectedSong: window.selectedSong || JSON.parse(JSON.stringify(playlistData.playlists[0])),
     };
 
   },
-
-  render: function() {
-    return (
-      <div>
-        <div className={this.state.toggled + " sidebar-wrapper"}>
-          <ToggleSidebarButton toggleClass={this.toggleClass} direction={this.state.direction} />
-          <SongList songs={this.state.songs} renderSong={this.renderSong} />
-          <AddSongButton />
-        </div>
-        <div className="videoHolder">
-          <MusicVideoBackdrop selectedSong={this.state.selectedSong} songs={this.state.songs}/>
-        </div>
-      </div>
-    );
-  },
-
-  toggleClass: function() {
-    this.setState({
-      toggled: this.state.toggled === 'wrapper-toggled' ? 'wrapper-notoggled' : 'wrapper-toggled',
-      direction: this.state.direction === 'left' ? 'right' : 'left'
-    })
-  },
-
-  renderSong: function(newSelectedSong) {
-    window.player.loadVideoById(newSelectedSong);
-
-    //React state change in case we need it for another component - change is done above on global scope
-    this.setState({
-      selectedSong: newSelectedSong
-    })
-  }
-
-});
-
-var ToggleSidebarButton = React.createClass({
-  render: function() {
-    return (
-        <span className={"glyphicon toggleButton2 glyphicon-chevron-" + this.props.direction} onClick={this.props.toggleClass}></span>
-    );
-  }
-
-});
-
-var MusicVideoBackdrop = React.createClass({
-
   componentDidMount: function() {
-    //Super weird hack to add a script tag for REACT might be accidentally adding a lot to memory on long playlists
-    /*var script = document.createElement("script");
-    script.type = 'text/javascript';
-    window.songEndTag = (this.props.selectedSong.id || this.props.selectedSong);
-    window.songs = this.props.songs;
-    function testing() {
 
-            // 3. This function creates an <iframe> (and YouTube player)
-            //    after the API code downloads.
-            window.player;
-            window.onYouTubeIframeAPIReady = function() {
-              window.player = new YT.Player('player', {
-                height: '390',
-                width: '640',
-                videoId: window.songEndTag,
-                events: {
-                  'onReady': onPlayerReady,
-                  'onStateChange': onPlayerStateChange
-                }
-              });
-              console.log(player);
-            }
-
-
-            // 4. The API will call this function when the video player is ready.
-            function onPlayerReady(event) {
-              event.target.playVideo();
-            };
-
-            function onPlayerStateChange(event) {
-              if(event.data === 0) {
-                console.log('we done bae');
-
-              }
-            }
-
-    };
-    var test = 'testing();' + testing.toString();
-    script.appendChild(document.createTextNode(test));
-    document.body.appendChild(script);
-    */
-    window.songEndTag = (this.props.selectedSong.id || this.props.selectedSong);
+    window.currentSongNum = 0;
+    window.songEndTag = (this.state.selectedSong.id || this.state.selectedSong);
+    window.songs = this.state.songs;
+    //This is no doubt breaking so many practices but ehh
+    window.self = this;
     function createIframe() {
       window.player = new YT.Player('player', {
         height: '390',
@@ -123,9 +42,14 @@ var MusicVideoBackdrop = React.createClass({
     function onPlayerStateChange(event) {
       if(event.data === 0) {
         console.log('we done bae');
-
+        window.currentSongNum++;
+        window.player.loadVideoById(window.songs[window.currentSongNum].id);
+        event.target.playVideo();
+        console.log(window.selectedSong);
+        window.self.updateHighlightedSong();
       }
     };
+
 
 
     if(window.ytApiLoaded === true || typeof(YT) != "undefined") {
@@ -148,6 +72,59 @@ var MusicVideoBackdrop = React.createClass({
   render: function() {
     return (
       <div>
+        <div className={this.state.toggled + " sidebar-wrapper"}>
+          <ToggleSidebarButton toggleClass={this.toggleClass} direction={this.state.direction} />
+          <SongList songs={this.state.songs} renderSong={this.renderSong} selectedSong={this.state.selectedSong} />
+          <AddSongButton />
+        </div>
+        <div className="videoHolder">
+          <MusicVideoBackdrop selectedSong={this.state.selectedSong} songs={this.state.songs}/>
+        </div>
+      </div>
+    );
+  },
+
+  toggleClass: function() {
+    this.setState({
+      toggled: this.state.toggled === 'wrapper-toggled' ? 'wrapper-notoggled' : 'wrapper-toggled',
+      direction: this.state.direction === 'left' ? 'right' : 'left'
+    })
+  },
+
+  renderSong: function(newSelectedSong, index) {
+    window.player.loadVideoById(newSelectedSong);
+    window.currentSongNum = index;
+
+    //React state change in case we need it for another component - change is done above on global scope
+    this.setState({
+      selectedSong: newSelectedSong
+    })
+  },
+
+  updateHighlightedSong: function() {
+    this.setState({
+      selectedSong: JSON.parse(JSON.stringify(playlistData.playlists[window.currentSongNum]))
+    })
+  }
+
+});
+
+var ToggleSidebarButton = React.createClass({
+  render: function() {
+    return (
+        <span className={"glyphicon toggleButton2 glyphicon-chevron-" + this.props.direction} onClick={this.props.toggleClass}></span>
+    );
+  }
+
+});
+
+var MusicVideoBackdrop = React.createClass({
+
+
+
+  render: function() {
+    return (
+      <div>
         <div id="player" className="videoHolder"></div>
       </div>
     );
@@ -159,10 +136,11 @@ var SongList = React.createClass({
 
   render: function() {
 
-    var createList = function(songInfo) {
+    var createList = function(songInfo, index) {
+      //Index is song index of playlist
         return (
-          <div key={songInfo.id} className="songList">
-            <div><div onClick={this.props.renderSong.bind(null, songInfo.id)}>{songInfo.title}</div></div>
+          <div key={songInfo.id} className={ this.props.selectedSong.id == songInfo.id || this.props.selectedSong == songInfo.id ? "selectedSong" : "songList"}>
+            <div><div onClick={this.props.renderSong.bind(null, songInfo.id, index)}>{songInfo.title}</div></div>
           </div>
         );
     };
