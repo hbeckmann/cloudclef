@@ -1,6 +1,10 @@
 var React = require('react');
 var ReactDOM = require('react-dom');
-var playlistData = require('../../api/playlistData');
+//var playlistData = require('../../api/playlistData');
+if(!window.playlistData) {
+  window.playlistData = [];
+};
+
 
 
 var NewPlaylistPage = React.createClass({
@@ -9,17 +13,21 @@ var NewPlaylistPage = React.createClass({
     return {
       toggled: 'wrapper-toggled',
       direction: 'left',
-      songs: JSON.parse(JSON.stringify(playlistData.playlists)),
-      selectedSong: window.selectedSong || JSON.parse(JSON.stringify(playlistData.playlists[0])),
+      //songs: JSON.parse(JSON.stringify(playlistData.playlists)),
+      songs: window.playlistData,
+      //selectedSong: window.selectedSong || JSON.parse(JSON.stringify(playlistData.playlists[0])),
+      selectedSong: window.selectedSong || window.playlistData[0],
     };
 
   },
   componentDidMount: function() {
 
     window.currentSongNum = 0;
-    window.songEndTag = (this.state.selectedSong.id || this.state.selectedSong);
+    if (this.state.selectedSong) {
+      window.songEndTag = (this.state.selectedSong.id || this.state.selectedSong);
+    };
     window.songs = this.state.songs;
-    //This is no doubt breaking so many practices but ehh
+    //This is no doubt breaking so many best practices but ehh
     window.self = this;
     function createIframe() {
       window.player = new YT.Player('player', {
