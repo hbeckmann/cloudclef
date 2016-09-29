@@ -2,7 +2,6 @@ var React = require('react');
 var ReactDOM = require('react-dom');
 var playlistData = require('../../api/playlistData');
 
-console.log(JSON.parse(JSON.stringify(playlistData.playlists)));
 
 var NewPlaylistPage = React.createClass({
 
