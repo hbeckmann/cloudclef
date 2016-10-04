@@ -1,31 +1,31 @@
 var React = require('react');
 var ReactDOM = require('react-dom');
+
+var AddSongButton = require('./addSongButton');
 //var playlistData = require('../../api/playlistData');
-if(!window.playlistData) {
-  window.playlistData = [];
-};
 
 
+var newPlaylistData = [];
+var selectedSong = null;
 
 var NewPlaylistPage = React.createClass({
+
 
   getInitialState: function() {
     return {
       toggled: 'wrapper-toggled',
       direction: 'left',
       //songs: JSON.parse(JSON.stringify(playlistData.playlists)),
-      songs: window.playlistData,
+      songs: newPlaylistData,
       //selectedSong: window.selectedSong || JSON.parse(JSON.stringify(playlistData.playlists[0])),
-      selectedSong: window.selectedSong || window.playlistData[0],
+      selectedSong: selectedSong || newPlaylistData[0],
     };
 
   },
   componentDidMount: function() {
 
     window.currentSongNum = 0;
-    if (this.state.selectedSong) {
-      window.songEndTag = (this.state.selectedSong.id || this.state.selectedSong);
-    };
+    window.songEndTag = null;
     window.songs = this.state.songs;
     //This is no doubt breaking so many best practices but ehh
     window.self = this;
@@ -112,6 +112,10 @@ var NewPlaylistPage = React.createClass({
     this.setState({
       selectedSong: JSON.parse(JSON.stringify(playlistData.playlists[window.currentSongNum]))
     })
+  },
+
+  addSongToPlaylist: function() {
+
   }
 
 });
@@ -160,17 +164,6 @@ var SongList = React.createClass({
   }
 });
 
-var AddSongButton = React.createClass({
-
-  render: function() {
-    return(
-      <div className="addSongButton">
-        <p><b>+</b> ADD SONG</p>
-      </div>
-    );
-  }
-
-});
 
 
 module.exports = NewPlaylistPage;
