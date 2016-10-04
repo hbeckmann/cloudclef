@@ -6,7 +6,7 @@ var AddSongButton = React.createClass({
 
   render: function() {
     return(
-      <div className="addSongButton">
+      <div className="addSongButton" onClick={this.props.addSongToPlaylist.bind(null, 'test')}>
         <p><b>+</b> ADD SONG</p>
       </div>
     );
