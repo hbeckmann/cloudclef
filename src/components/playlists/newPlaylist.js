@@ -81,6 +81,7 @@ var NewPlaylistPage = React.createClass({
       <div>
         <div className={this.state.toggled + " sidebar-wrapper"}>
           <ToggleSidebarButton toggleClass={this.toggleClass} direction={this.state.direction} />
+          <PlaylistTitle />
           <SongList songs={this.state.songs} renderSong={this.renderSong} selectedSong={this.state.selectedSong} />
           <AddSongButton addSongToPlaylist={this.addSongToPlaylist}/>
         </div>
@@ -162,6 +163,18 @@ var SongList = React.createClass({
       </div>
     );
   }
+});
+
+var PlaylistTitle = React.createClass({
+
+  render: function() {
+    return (
+      <div className="playlistTitle">
+        <input type="text" placeholder="Enter a Playlist Title"></input>
+      </div>
+    )
+  }
+
 });
 
 
