@@ -83,7 +83,7 @@ var Playlists = React.createClass({
         <div className={this.state.toggled + " sidebar-wrapper"}>
           <ToggleSidebarButton toggleClass={this.toggleClass} direction={this.state.direction} />
           <SongList songs={this.state.songs} renderSong={this.renderSong} selectedSong={this.state.selectedSong} />
-          <AddSongButton />
+          <AddSongButton addSongToPlaylist={this.addSongToPlaylist} />
         </div>
         <div className="videoHolder">
           <MusicVideoBackdrop selectedSong={this.state.selectedSong} songs={this.state.songs}/>
@@ -113,6 +113,10 @@ var Playlists = React.createClass({
     this.setState({
       selectedSong: window.playlistData[window.currentSongNum]
     })
+  },
+
+  addSongToPlaylist: function(newSong) {
+    console.log(newSong);
   }
 
 });
