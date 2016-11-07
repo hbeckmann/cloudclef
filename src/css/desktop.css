@@ -48,6 +48,13 @@
     background: #fff;
 }
 
+.logo {
+    float: left;
+    height: 50px;
+    padding: 9px 15px;
+    font-size: 18px;
+    line-height: 30px;
+}
 
 .selectedSong {
   float: left;

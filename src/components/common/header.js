@@ -11,7 +11,7 @@ var Header = React.createClass({
           <nav className="navbar navbar-default">
             <div className="navbar-header">
             <Link to ="/">
-              <img src="images/logo1.png" className="navbar-brand" />
+              <img src="images/logo1.png" className="logo" />
             </Link>
             </div>
               <ul className="nav navbar-nav">
