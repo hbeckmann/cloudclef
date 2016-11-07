@@ -13,6 +13,16 @@
   cursor: pointer;
 }
 
+.addSongDialog {
+  position: absolute;
+  top: 150px;
+  left: 300px;
+  width: 50%;
+  height: 20%;
+  z-index: 9999;
+  background-color: rgba(99,99,99,0.70);
+}
+
 .sidebar-wrapper {
     z-index: 1000;
     opacity: 0.95;

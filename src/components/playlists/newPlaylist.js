@@ -2,6 +2,7 @@ var React = require('react');
 var ReactDOM = require('react-dom');
 
 var AddSongButton = require('./addSongButton');
+var AddSongDialog = require('./addSongDialog');
 //var playlistData = require('../../api/playlistData');
 
 
@@ -85,6 +86,7 @@ var NewPlaylistPage = React.createClass({
           <SongList songs={this.state.songs} renderSong={this.renderSong} selectedSong={this.state.selectedSong} />
           <AddSongButton addSongToPlaylist={this.addSongToPlaylist}/>
         </div>
+        <AddSongDialog />
         <div className="videoHolder">
           <MusicVideoBackdrop selectedSong={this.state.selectedSong} songs={this.state.songs}/>
         </div>
