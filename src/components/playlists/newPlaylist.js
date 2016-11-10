@@ -8,6 +8,8 @@ var AddSongDialog = require('./addSongDialog');
 
 var newPlaylistData = [];
 var selectedSong = null;
+window.database = firebase.database();
+
 
 var NewPlaylistPage = React.createClass({
 
@@ -178,9 +180,20 @@ var PlaylistTitle = React.createClass({
   render: function() {
     return (
       <div className="playlistTitle">
-        <input type="text" placeholder="Enter a Playlist Title"></input>
+        <input type="text" placeholder="Enter a Playlist Title"  ref="playlistTitle" onKeyPress={this.keyUpSavePlaylistTitle} onBlur={this.savePlaylistTitle}></input>
       </div>
     )
+  },
+
+  savePlaylistTitle : function() {
+    var newTitle = this.refs.playlistTitle.value;
+    window.database.ref('/users/' + window.user.uid + '/playlists/').push({PlaylistTitle: newTitle});
+  },
+
+  keyUpSavePlaylistTitle: function(e) {
+    if(e.key === "Enter") {
+      this.refs.playlistTitle.blur();
+    }
   }
 
 });
