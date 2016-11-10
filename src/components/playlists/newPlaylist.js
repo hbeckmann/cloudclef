@@ -9,6 +9,7 @@ var AddSongDialog = require('./addSongDialog');
 var newPlaylistData = [];
 var selectedSong = null;
 window.database = firebase.database();
+window.playlistId = null;
 
 
 var NewPlaylistPage = React.createClass({
@@ -187,7 +188,12 @@ var PlaylistTitle = React.createClass({
 
   savePlaylistTitle : function() {
     var newTitle = this.refs.playlistTitle.value;
-    window.database.ref('/users/' + window.user.uid + '/playlists/').push({PlaylistTitle: newTitle});
+    if(window.playlistId === null) {
+      var newRef = window.database.ref('/users/' + window.user.uid + '/playlists/').push({PlaylistTitle: newTitle});
+      window.playlistId = newRef.key;
+    } else {
+      window.database.ref('/users/' + window.user.uid + '/playlists/' + window.playlistId).set({PlaylistTitle: newTitle});
+    }
   },
 
   keyUpSavePlaylistTitle: function(e) {
