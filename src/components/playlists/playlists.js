@@ -100,7 +100,7 @@ var Playlists = React.createClass({
 
   toggleSidebarClass: function() {
     this.setState({
-      toggled: this.state.sidebarToggled === 'wrapper-toggled' ? 'wrapper-notoggled' : 'wrapper-toggled',
+      sidebarToggled: this.state.sidebarToggled === 'wrapper-toggled' ? 'wrapper-notoggled' : 'wrapper-toggled',
       direction: this.state.direction === 'left' ? 'right' : 'left'
     })
   },
