@@ -1,6 +1,7 @@
 var React = require('react');
 var ReactDOM = require('react-dom');
-var AddSongButton = require('./addSongButton')
+var AddSongButton = require('./addSongButton');
+var AddSongDialog = require('./addSongDialog');
 //var playlistData = require('../../api/playlistData');
 if(!window.playlistData) {
   window.playlistData = [];
@@ -12,7 +13,8 @@ var Playlists = React.createClass({
 
   getInitialState: function() {
     return {
-      toggled: 'wrapper-toggled',
+      sidebarToggled: 'wrapper-toggled',
+      dialogToggled: 'dialog-hidden',
       direction: 'left',
       //songs: JSON.parse(JSON.stringify(playlistData.playlists)),
       songs: window.playlistData,
@@ -80,11 +82,14 @@ var Playlists = React.createClass({
   render: function() {
     return (
       <div>
-        <div className={this.state.toggled + " sidebar-wrapper"}>
-          <ToggleSidebarButton toggleClass={this.toggleClass} direction={this.state.direction} />
+        <div className={this.state.sidebarToggled + " sidebar-wrapper"}>
+          <ToggleSidebarButton toggleClass={this.toggleSidebarClass} direction={this.state.direction} />
           <PlaylistTitle />
           <SongList songs={this.state.songs} renderSong={this.renderSong} selectedSong={this.state.selectedSong} />
           <AddSongButton addSongToPlaylist={this.addSongToPlaylist} />
+        </div>
+        <div className={this.state.dialogToggled}>
+          <AddSongDialog  />
         </div>
         <div className="videoHolder">
           <MusicVideoBackdrop selectedSong={this.state.selectedSong} songs={this.state.songs}/>
@@ -93,9 +98,9 @@ var Playlists = React.createClass({
     );
   },
 
-  toggleClass: function() {
+  toggleSidebarClass: function() {
     this.setState({
-      toggled: this.state.toggled === 'wrapper-toggled' ? 'wrapper-notoggled' : 'wrapper-toggled',
+      toggled: this.state.sidebarToggled === 'wrapper-toggled' ? 'wrapper-notoggled' : 'wrapper-toggled',
       direction: this.state.direction === 'left' ? 'right' : 'left'
     })
   },
@@ -118,6 +123,9 @@ var Playlists = React.createClass({
 
   addSongToPlaylist: function(newSong) {
     console.log(newSong);
+    this.setState({
+      dialogToggled: this.state.dialogToggled === 'dialog-visible' ? 'dialog-hidden' : 'dialog-visible'
+    })
   }
 
 });

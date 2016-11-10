@@ -14,7 +14,8 @@ var NewPlaylistPage = React.createClass({
 
   getInitialState: function() {
     return {
-      toggled: 'wrapper-toggled',
+      sidebarToggled: 'wrapper-toggled',
+      dialogToggled: 'dialog-hidden',
       direction: 'left',
       //songs: JSON.parse(JSON.stringify(playlistData.playlists)),
       songs: newPlaylistData,
@@ -80,13 +81,15 @@ var NewPlaylistPage = React.createClass({
   render: function() {
     return (
       <div>
-        <div className={this.state.toggled + " sidebar-wrapper"}>
-          <ToggleSidebarButton toggleClass={this.toggleClass} direction={this.state.direction} />
+        <div className={this.state.sidebarToggled + " sidebar-wrapper"}>
+          <ToggleSidebarButton toggleClass={this.toggleSidebarClass} direction={this.state.direction} />
           <PlaylistTitle />
           <SongList songs={this.state.songs} renderSong={this.renderSong} selectedSong={this.state.selectedSong} />
           <AddSongButton addSongToPlaylist={this.addSongToPlaylist}/>
         </div>
-        <AddSongDialog />
+        <div className={this.state.dialogToggled}>
+          <AddSongDialog  />
+        </div>
         <div className="videoHolder">
           <MusicVideoBackdrop selectedSong={this.state.selectedSong} songs={this.state.songs}/>
         </div>
@@ -94,9 +97,9 @@ var NewPlaylistPage = React.createClass({
     );
   },
 
-  toggleClass: function() {
+  toggleSidebarClass: function() {
     this.setState({
-      toggled: this.state.toggled === 'wrapper-toggled' ? 'wrapper-notoggled' : 'wrapper-toggled',
+      sidebarToggled: this.state.sidebarToggled === 'wrapper-toggled' ? 'wrapper-notoggled' : 'wrapper-toggled',
       direction: this.state.direction === 'left' ? 'right' : 'left'
     })
   },
@@ -119,6 +122,9 @@ var NewPlaylistPage = React.createClass({
 
   addSongToPlaylist: function(newSong) {
     console.log(newSong);
+    this.setState({
+      dialogToggled: this.state.dialogToggled === 'dialog-visible' ? 'dialog-hidden' : 'dialog-visible'
+    })
   }
 
 });

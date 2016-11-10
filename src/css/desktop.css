@@ -23,6 +23,24 @@
   background-color: rgba(99,99,99,0.70);
 }
 
+.dialog-hidden {
+  visibility: hidden;;
+  opacity: 0;
+  -webkit-transition: all 0.5s ease;
+  -moz-transition: all 0.5s ease;
+  -o-transition: all 0.5s ease;
+  transition: all 0.5s ease;
+}
+
+.dialog-visible {
+  visibility: visible;
+  opacity: 1;
+  -webkit-transition: all 0.5s ease;
+  -moz-transition: all 0.5s ease;
+  -o-transition: all 0.5s ease;
+  transition: all 0.5s ease;
+}
+
 .sidebar-wrapper {
     z-index: 1000;
     opacity: 0.95;
