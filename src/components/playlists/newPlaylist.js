@@ -192,7 +192,7 @@ var PlaylistTitle = React.createClass({
       var newRef = window.database.ref('/users/' + window.user.uid + '/playlists/').push({playlistTitle: newTitle});
       window.playlistId = newRef.key;
     } else {
-      window.database.ref('/users/' + window.user.uid + '/playlists/' + window.playlistId + '/playlistTitle').set({playlistTitle: newTitle});
+      window.database.ref('/users/' + window.user.uid + '/playlists/' + window.playlistId).update({playlistTitle: newTitle});
     }
   },
 
