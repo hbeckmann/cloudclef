@@ -189,10 +189,10 @@ var PlaylistTitle = React.createClass({
   savePlaylistTitle : function() {
     var newTitle = this.refs.playlistTitle.value;
     if(window.playlistId === null) {
-      var newRef = window.database.ref('/users/' + window.user.uid + '/playlists/').push({PlaylistTitle: newTitle});
+      var newRef = window.database.ref('/users/' + window.user.uid + '/playlists/').push({playlistTitle: newTitle});
       window.playlistId = newRef.key;
     } else {
-      window.database.ref('/users/' + window.user.uid + '/playlists/' + window.playlistId).set({PlaylistTitle: newTitle});
+      window.database.ref('/users/' + window.user.uid + '/playlists/' + window.playlistId + '/playlistTitle').set({playlistTitle: newTitle});
     }
   },
 

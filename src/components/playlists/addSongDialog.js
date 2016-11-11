@@ -7,15 +7,29 @@ var AddSongDialog = React.createClass({
   render: function() {
     return(
       <div className="addSongDialog">
-        <input type="text" id="addSongTitle"></input>
-        <input type="text" id="addSongId"></input>
+        <input type="text" id="addSongTitle" ref="addSongTitle" onKeyPress={this.saveSongDetails}></input>
+        <input type="text" id="addSongId" ref="addSongId" ></input>
       </div>
     );
   },
 
-  savePlaylistTitle : function() {
-    console.log('blur');
+  saveSongDetails: function(e) {
+    if(e.key === "Enter") {
+      var title = this.refs.addSongTitle.value;
+      var id = this.refs.addSongId.value;
+
+      if(window.playlistId !== null) {
+        window.database.ref('/users/' + window.user.uid + '/playlists/' + window.playlistId + '/songs').push({title: title, id: id });
+      } else {
+        var newRef = window.database.ref('/users/' + window.user.uid + '/playlists/').push({playlistTitle: ""});
+        window.playlistId = newRef.key;
+        window.database.ref('/users/' + window.user.uid + '/playlists/' + window.playlistId + '/songs').push({title: title, id: id });
+      }
+    }
   }
+
+
+
 
 });
 
