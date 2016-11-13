@@ -7,8 +7,12 @@ var AddSongDialog = React.createClass({
   render: function() {
     return(
       <div className="addSongDialog">
-        <input type="text" id="addSongTitle" ref="addSongTitle" onKeyPress={this.saveSongDetails}></input>
-        <input type="text" id="addSongId" ref="addSongId" ></input>
+        <div className="dialogLine">
+          <label>Song Title</label><input type="text" id="addSongTitle" ref="addSongTitle" onKeyPress={this.saveSongDetails}></input>
+        </div>
+        <div className="dialogLine">
+          <label>Song URL</label><input type="text" id="addSongId" ref="addSongId" ></input>
+        </div>
       </div>
     );
   },
