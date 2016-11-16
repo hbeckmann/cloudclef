@@ -11,7 +11,7 @@ var AddSongDialog = React.createClass({
           <label>Song Title</label><input type="text" id="addSongTitle" ref="addSongTitle" onKeyPress={this.saveSongDetails}></input>
         </div>
         <div className="dialogLine">
-          <label>Song URL</label><input type="text" id="addSongId" ref="addSongId" ></input>
+          <label>URL</label><input type="text" id="addSongId" ref="addSongId" ></input>
         </div>
       </div>
     );
@@ -29,6 +29,9 @@ var AddSongDialog = React.createClass({
         window.playlistId = newRef.key;
         window.database.ref('/users/' + window.user.uid + '/playlists/' + window.playlistId + '/songs').push({title: title, id: id });
       }
+
+      this.refs.addSongTitle.value = "";
+      this.refs.addSongId.value = "";
     }
   }
 
