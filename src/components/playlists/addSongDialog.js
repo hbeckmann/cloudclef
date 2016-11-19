@@ -8,7 +8,7 @@ var AddSongDialog = React.createClass({
     return(
       <div className="addSongDialog">
         <div className="dialogLine">
-          <div className="closeButton">
+          <div className="closeButton" onClick={this.props.addSongToPlaylist.bind(null)}>
             X
           </div>
         </div>

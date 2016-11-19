@@ -91,7 +91,7 @@ var NewPlaylistPage = React.createClass({
           <AddSongButton addSongToPlaylist={this.addSongToPlaylist}/>
         </div>
         <div className={this.state.dialogToggled}>
-          <AddSongDialog  />
+          <AddSongDialog  addSongToPlaylist={this.addSongToPlaylist}/>
         </div>
         <div className="videoHolder">
           <MusicVideoBackdrop selectedSong={this.state.selectedSong} songs={this.state.songs}/>
@@ -123,8 +123,7 @@ var NewPlaylistPage = React.createClass({
     })
   },
 
-  addSongToPlaylist: function(newSong) {
-    console.log(newSong);
+  addSongToPlaylist: function() {
     this.setState({
       dialogToggled: this.state.dialogToggled === 'dialog-visible' ? 'dialog-hidden' : 'dialog-visible'
     })
