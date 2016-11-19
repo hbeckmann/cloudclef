@@ -10,7 +10,7 @@ var newPlaylistData = [];
 var selectedSong = null;
 window.database = firebase.database();
 window.playlistId = null;
-
+window.playlistData = [{id: "V7shJMAs7co", title: "trigger me"}];
 
 var NewPlaylistPage = React.createClass({
 
@@ -20,10 +20,9 @@ var NewPlaylistPage = React.createClass({
       sidebarToggled: 'wrapper-toggled',
       dialogToggled: 'dialog-hidden',
       direction: 'left',
-      //songs: JSON.parse(JSON.stringify(playlistData.playlists)),
-      songs: newPlaylistData,
+      songs: window.playlistData,
       //selectedSong: window.selectedSong || JSON.parse(JSON.stringify(playlistData.playlists[0])),
-      selectedSong: selectedSong || newPlaylistData[0],
+      selectedSong: selectedSong || window.playlistData[0],
     };
 
   },
@@ -91,7 +90,7 @@ var NewPlaylistPage = React.createClass({
           <AddSongButton addSongToPlaylist={this.addSongToPlaylist}/>
         </div>
         <div className={this.state.dialogToggled}>
-          <AddSongDialog  addSongToPlaylist={this.addSongToPlaylist}/>
+          <AddSongDialog  addSongToPlaylist={this.addSongToPlaylist} retrieveSongList={this.retrieveSongList}/>
         </div>
         <div className="videoHolder">
           <MusicVideoBackdrop selectedSong={this.state.selectedSong} songs={this.state.songs}/>
@@ -127,7 +126,26 @@ var NewPlaylistPage = React.createClass({
     this.setState({
       dialogToggled: this.state.dialogToggled === 'dialog-visible' ? 'dialog-hidden' : 'dialog-visible'
     })
-  }
+  },
+
+  retrieveSongList: function() {
+    var selectedPlaylistRef = firebase.database().ref('/users/' + window.user.uid + '/playlists/' + window.playlistId + '/songs');
+    selectedPlaylistRef.once('value', function(snapshot) {
+      console.log(snapshot.val());
+      window.playlistData = [];
+      var response = snapshot.val();
+      for (var x in response) {
+        window.playlistData.push(response[x]);
+
+        console.log("new playlist data =" + window.playlistData);
+      };
+
+    });
+    this.setState({
+      songs: window.playlistData
+    });
+  },
+
 
 });
 
@@ -161,6 +179,7 @@ var SongList = React.createClass({
     var createList = function(songInfo, index) {
       //Index is song index of playlist
         return (
+
           <div key={songInfo.id} className={ this.props.selectedSong.id == songInfo.id || this.props.selectedSong == songInfo.id ? "selectedSong" : "songList"}>
             <div><div onClick={this.props.renderSong.bind(null, songInfo.id, index)}>{songInfo.title}</div></div>
           </div>

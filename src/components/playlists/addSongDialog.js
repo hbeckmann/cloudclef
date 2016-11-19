@@ -35,15 +35,17 @@ var AddSongDialog = React.createClass({
 
     if(window.playlistId !== null) {
       window.database.ref('/users/' + window.user.uid + '/playlists/' + window.playlistId + '/songs').push({title: title, id: id });
+      this.props.retrieveSongList();
     } else {
       var newRef = window.database.ref('/users/' + window.user.uid + '/playlists/').push({playlistTitle: ""});
       window.playlistId = newRef.key;
       window.database.ref('/users/' + window.user.uid + '/playlists/' + window.playlistId + '/songs').push({title: title, id: id });
+      this.props.retrieveSongList();
     }
 
     this.refs.addSongTitle.value = "";
     this.refs.addSongId.value = "";
-  }
+  },
 
 
 
