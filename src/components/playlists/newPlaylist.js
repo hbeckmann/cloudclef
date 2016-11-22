@@ -6,11 +6,10 @@ var AddSongDialog = require('./addSongDialog');
 //var playlistData = require('../../api/playlistData');
 
 
-var newPlaylistData = [];
 var selectedSong = null;
 window.database = firebase.database();
 window.playlistId = null;
-window.playlistData = [{id: "V7shJMAs7co", title: "trigger me"}];
+window.newPlaylistData = [{id: "V7shJMAs7co", title: "trigger me"}];
 
 var NewPlaylistPage = React.createClass({
 
@@ -20,7 +19,7 @@ var NewPlaylistPage = React.createClass({
       sidebarToggled: 'wrapper-toggled',
       dialogToggled: 'dialog-hidden',
       direction: 'left',
-      songs: window.playlistData,
+      songs: window.newPlaylistData,
       //selectedSong: window.selectedSong || JSON.parse(JSON.stringify(playlistData.playlists[0])),
       selectedSong: selectedSong || window.playlistData[0],
     };
@@ -81,6 +80,8 @@ var NewPlaylistPage = React.createClass({
   },
 
   render: function() {
+
+
     return (
       <div>
         <div className={this.state.sidebarToggled + " sidebar-wrapper"}>
